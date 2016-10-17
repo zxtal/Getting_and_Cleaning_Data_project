@@ -11,7 +11,7 @@ The downloaded files contain the data collected from the accelerometers from the
 7) features: variable names for the 561 variables found in the X_test and X_train files.
 8) activity_labels: descriptive labels for the activities of the volunteers performed in the experiments, including 1 WALKING; 2 WALKING_UPSTAIRS; 3 WALKING_DOWNSTAIRS; 4 SITTING; 5 STANDING; 6 LAYING.
 
-Briefly, the script is edited using RStudio. The files are read into data frames using the read.table() function. The data frames are merged together using the cbind() function. Then, a new dataset that contains only the variables containing strings “mean()” or “std()” is formed. Finally, a new dataset with the averaged values for each variable for each activity and each volunteer is formed using the melt() and ddply() functions.
+Briefly, the script is edited using RStudio. The files are read into data frames using the read.table() function. The data frames are merged together using the cbind() function. Then, a new dataset that contains only the variables containing strings “mean()” or “std()” is formed. Finally, a new dataset with the averaged values for each variable for each activity and each volunteer is formed using the melt() and ddply() functions.The new clean data containing the averaged values is saved in averages_summary.tx, which will be located in the working directory ("./UCI HAR Dataset").
 
 
 Detailed codes are explained as below:
@@ -89,6 +89,8 @@ melted <- melt(combined, id.vars = c("volunteer", “activity"))
 
 ## Calculate mean of each variable for each activity and each subject.
 summary <- ddply(melted, .(volunteer, activity, variable), summarise, mean = mean(value))
+## write the new dataset in a text file and name it averages_summary.txt
+write.table(summary, "averages_summary.txt", row.name=FALSE)
 
 To view the dataset, type: combined. 
 
