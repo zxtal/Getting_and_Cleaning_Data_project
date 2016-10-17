@@ -21,4 +21,5 @@ train_all$activity <- factor(train_all$activity, levels = c(1,2,3,4,5,6), labels
 combined <- merge(test_all, train_all, all = TRUE)
 melted <- melt(combined, id.vars = c("volunteer", "activity"))
 summary <- ddply(melted, .(volunteer, activity, variable), summarise, mean = mean(value))
+write.table(summary, "averages_summary.txt", row.name=FALSE)
 remove("melted","test_activity","test_all","test_extract","test_raw", "test_raw_mean","test_raw_std","test_subject","train_activity", "train_all","train_extract","train_raw","train_raw_mean","train_raw_std","train_subject","variableNames")
